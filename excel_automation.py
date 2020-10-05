@@ -21,14 +21,13 @@ def job():
 
 	#if there is a new file lets load it to a dataframe and prepare it to write
 	if dropped_files:
-		df=pd.read_excel(drop_path, columns= ['Month', 'Dept', 'Sales'])
-
-		#Find the current number of entries in the main file
-		df_main=pd.read_excel('main.xlsx', columns= ['Month', 'Dept', 'Sales'])
+		df=pd.read_excel(drop_path, usecols= ['Name', 'Product', 'Production Run Time (Min)','Products Produced (Units)']) 
+        #Find the current number of entries in the main file
+		df_main=pd.read_excel(r'C:\Users\Sayyad Manzil\Desktop\Python_Data\shakil_123\Excel_automation\main.xlsx', usecols=  ['Name', 'Product', 'Production Run Time (Min)','Products Produced (Units)'])
 		current_rows=df_main.shape[0]
 
 		#Load the main workbook
-		workbook_name = 'main.xlsx'
+		workbook_name = r'C:\Users\Sayyad Manzil\Desktop\Python_Data\shakil_123\Excel_automation\main.xlsx'
 		wb = load_workbook(workbook_name)
 		page=wb['Sheet1']
 		#page = wb.active
@@ -38,7 +37,7 @@ def job():
 		for i in new_etries:
 			page.append(i)
 		wb.save(filename=workbook_name)
-		df_main_new=pd.read_excel('main.xlsx', columns= ['Month', 'Dept', 'Sales'])
+		df_main_new=pd.read_excel(r'C:\Users\Sayyad Manzil\Desktop\Python_Data\shakil_123\Excel_automation\main.xlsx', usecols= ['Name', 'Product', 'Production Run Time (Min)','Products Produced (Units)'])
 		new_rows=df_main_new.shape[0]
 
 		#Check to see if old rows+appended rows = total new rows in updated excel
@@ -50,7 +49,8 @@ def job():
 	else:
 		print('No New Files')
 
-schedule.every().day.at("01:00").do(job)
+#schedule.every().day.at("01:00").do(job)
+schedule.every().minute.at(":10").do(job)
 
 while True:
     schedule.run_pending()
