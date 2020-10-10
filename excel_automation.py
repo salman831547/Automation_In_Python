@@ -1,7 +1,3 @@
-#Code Written by Sats Sehgal
-#http://www.satssehgal.com
-#Video Instructions for this code: https://youtu.be/On4bL4tSZzg
-
 import shutil
 import os
 import pandas as pd
@@ -44,12 +40,12 @@ def job():
 
 		if new_rows == current_rows+df.shape[0]:
 			shutil.move(drop_path, os.path.join(os.getcwd(),'Processed/'))
-		print('All Files Process. Completed')
+		print('All Files Processed. Completed')
 
 	else:
 		print('No New Files')
 
-#schedule.every().day.at("01:00").do(job)
+#schedule.every().day.at("05:53").do(job)
 schedule.every().minute.at(":10").do(job)
 
 while True:
